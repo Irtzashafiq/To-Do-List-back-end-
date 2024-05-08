@@ -35,7 +35,7 @@ console.log(obj.a)
 
 
 const obj = {
-    userName :"Faizan",
+    userName :"Irtza",
     age:20,
     addres :"Lahore",
     gender:"Male",
