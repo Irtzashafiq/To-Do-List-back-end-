@@ -1,5 +1,5 @@
-//For each
-//For each return nahi krta
+// For Each
+// For each returns nothing
 // array = [1,2,3,4,5]
 
 // array.forEach(item => {
@@ -7,16 +7,9 @@
 // });
 
 
-//Mapping
-// It will return something
+//for eachloop
 
-const arr = [1,2,3,4,5,6]
-
-// arr.map(item => {
-//     item =item*5
-//     return item
-// })
-console.log(arr.map(item => {
-    item =item*5
-    return item
-}))
+// let a = [1,93,4,7,6,88]
+// a.forEach((Item , index, arr) => {
+//     console.log(Item, index, arr) // this will print the item(1) , index (0) , arr itself
+// }); 
