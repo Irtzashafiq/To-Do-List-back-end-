@@ -11,17 +11,20 @@
 //     console.log(val)
 // })
 
-const main = async()=>{
 
-    while (true) {
-        const promise = new Promise((res)=>{
-            setTimeout(()=>{
-                res(new Date())
-            },1000);
-        });
-        await promise.then((val)=>{
-            console.log(val)
-        });
-    };
-    };
-    main();
+//Digital watch using async function
+
+// const main = async()=>{
+
+//     while (true) {
+//         const promise = new Promise((res)=>{
+//             setTimeout(()=>{
+//                 res(new Date())
+//             },1000);
+//         });
+//         await promise.then((val)=>{
+//             console.log(val)
+//         });
+//     };
+//     };
+//     main();
