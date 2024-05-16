@@ -33,7 +33,7 @@ module.exports = {
         const validate = await newUserSchema.validateAsync(req.body)
        return res.send({
             message : "Create user",
-            data : req.body
+            data : validate
         });
     }catch (error){
         return res.send({
