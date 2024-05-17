@@ -1,5 +1,5 @@
 const route = require("express").Router();
-const {getUser,createUser,updateUser,deleteUser} = require("../controllers/authcontroller")
+const {getUser,createUser,updateUser,deleteUser} = require("../controllers/usercontroller")
 
 route.get("/getUser" , getUser )
 route.post("/createUser", createUser)

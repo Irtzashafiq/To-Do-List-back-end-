@@ -1,4 +1,6 @@
 const joi = require("joi");
+const userService = require("../services/userService");
+
 
 const loginSchema = joi.object().keys({
     username : joi.string().email().required(),
@@ -6,10 +8,10 @@ const loginSchema = joi.object().keys({
 })
 
 const newUserSchema = joi.object().keys({
-    firstName : joi.string().max(10),
-    lastName : joi.string().max(10),
-    email : joi.string().email().required(),
-    password : joi.string().min(8).max(18).required(),
+    username : joi.string().max(10).alphanum(),
+    email : joi.string().email(),
+    password : joi.string().min(8).max(15).required(),
+    confirmPassword : joi.ref("password"),
 })
 
 const UpdateUserSchema = joi.object().keys({
@@ -41,9 +43,14 @@ module.exports = {
     createUser: async (req, res) => {
             try{
         const validate = await newUserSchema.validateAsync(req.body)
+        const user = await userService.createUser(validate)
+        if (user.error) {
+            return res.send({
+                error : user.error
+            })
+        }
        return res.send({
-            message : "Create user",
-            data : validate
+            response : user.response
         });
     }catch (error){
         return res.send({
