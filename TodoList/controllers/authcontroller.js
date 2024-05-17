@@ -12,6 +12,16 @@ const newUserSchema = joi.object().keys({
     password : joi.string().min(8).max(18).required(),
 })
 
+const UpdateUserSchema = joi.object().keys({
+    email : joi.string().email(),
+    password : joi.string().min(8).max(15)
+})
+
+const deleteUserSchema = joi.object().keys({
+    email : joi.string().email(),
+    password: joi.string().min(8).max(15),
+})
+
 module.exports = {
     getUser: async(req, res) => {
         try{
@@ -40,6 +50,35 @@ module.exports = {
             message : error.message
         })
     }
+    },
+
+    updateUser: async (req,res)=>{
+        try {
+            const validate = await UpdateUserSchema.validateAsync(req.body)
+            return res.send({
+                message : "updated user successfully",
+                data : validate
+            })
+        } catch (error) {
+            res.send ({
+                message: error.message
+            })
+            
+        }
+        },
+
+    deleteUser : async (req,res) =>{
+        try {
+            const validate = await deleteUserSchema.validateAsync(req.query)
+            return res.send({
+                message: "Deleted User successfully",
+                data : validate
+            })
+        } catch (error) {
+            res.send({
+                message : error.message
+            })
+        }
     }
 }
 
