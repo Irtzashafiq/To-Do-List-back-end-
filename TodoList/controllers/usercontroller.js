@@ -14,12 +14,12 @@ const createUserSchema = joi.object().keys({
 });
 
 const UpdateUserSchema = joi.object().keys({
-  email: joi.string().email(),
+  username: joi.string().email(),
   password: joi.string().min(8).max(15),
 });
 
 const deleteUserSchema = joi.object().keys({
-  email: joi.string().email(),
+  username: joi.string().email(),
   password: joi.string().min(8).max(15),
 });
 
