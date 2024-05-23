@@ -1,9 +1,8 @@
 const joi = require("joi");
 const userService = require("../services/userService");
-const { getAllUsers } = require("../models/userModel");
 
 const getUserSchema = joi.object().keys({
-  userName: joi.string().email().required(),
+  userName: joi.string().required(),
   password: joi.string().min(6).max(12).required(),
 });
 
@@ -49,6 +48,7 @@ module.exports = {
         });
       }
       return res.send({
+        message: "creating a new user",
         response: user.response,
       });
     } catch (error) {

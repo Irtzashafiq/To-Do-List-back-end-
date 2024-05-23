@@ -4,8 +4,6 @@ const { models } = require("./index");
 module.exports = {
   createUser: async (body) => {
     try {
-      //create db record
-
       const user = await models.users.create({ ...body });
       return {
         response: user, 
