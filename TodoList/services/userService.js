@@ -1,21 +1,34 @@
 const {hash} = require("bcryptjs")
+const {v4 : uuid} = require ("uuid")
 const userModel = require("../models/userModel")
 module.exports = {
     createUser : async (body) => {
         try {
-        body.password = await hash(body.password, 10)
+        // body.password = await hash(body.password, 10)
         delete body.confirmPassword;
+        const isUser = await userModel.getUser(false,body.userName);
+          console.log(isUser,"isUser")
+        if (isUser.error || isUser.response ) {
+            return{
+                error: "user already existed"
+            }
+            
+        }
+        body.password = await hash(body.password , 10);
+        body.userId = uuid();
+        const user =await userModel.createUser(body);
 
-        const user =await userModel.createUser(body)
         if (user.error) {
             return{
                 error: user.error
             }
             
-        }delete user.response.password;
+        }
+
+        delete user.response.dataValues.password;
 
             return {
-            response: user.response,
+            response: user.response.dataValues,
             }
         } catch (error) {
             return{
@@ -23,5 +36,18 @@ module.exports = {
             }
             
         }
-    }
+    },
+    // getAllUsers: async()=>{
+    //     try {
+    //       const user =await models.users.getAllUsers();
+          
+    //       return{
+    //         response:user,
+    //       }
+    //     } catch (error) {
+    //       return {
+    //         error: error,
+    //       };
+    //     }
+    //   }
 }

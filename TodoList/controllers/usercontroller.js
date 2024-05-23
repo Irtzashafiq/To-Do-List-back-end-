@@ -2,14 +2,13 @@ const joi = require("joi");
 const userService = require("../services/userService");
 
 
-const loginSchema = joi.object().keys({
-    username : joi.string().email().required(),
+const getUserSchema = joi.object().keys({
+    userName : joi.string().email().required(),
     password : joi.string().min(6).max(12).required()
 })
 
-const newUserSchema = joi.object().keys({
-    username : joi.string().max(10).alphanum(),
-    email : joi.string().email(),
+const createUserSchema = joi.object().keys({
+    userName : joi.string().alphanum().max(15).required(),
     password : joi.string().min(8).max(15).required(),
     confirmPassword : joi.ref("password"),
 })
@@ -27,7 +26,7 @@ const deleteUserSchema = joi.object().keys({
 module.exports = {
     getUser: async(req, res) => {
         try{
-            const validate =await loginSchema.validateAsync(req.query);
+            const validate =await getUserSchema.validateAsync(req.query);
        return res.send({
             message : "Get Users",
             data : validate
@@ -42,8 +41,9 @@ module.exports = {
 
     createUser: async (req, res) => {
             try{
-        const validate = await newUserSchema.validateAsync(req.body)
+        const validate = await createUserSchema.validateAsync(req.body)
         const user = await userService.createUser(validate)
+
         if (user.error) {
             return res.send({
                 error : user.error
