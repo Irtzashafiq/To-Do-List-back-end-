@@ -37,17 +37,21 @@ module.exports = {
             
         }
     },
-    // getAllUsers: async()=>{
-    //     try {
-    //       const user =await models.users.getAllUsers();
-          
-    //       return{
-    //         response:user,
-    //       }
-    //     } catch (error) {
-    //       return {
-    //         error: error,
-    //       };
-    //     }
-    //   }
+    getAllUsers: async () => {
+        try {
+          const users = await userModel.getAllUsers();
+          if (users.error) {
+            return {
+              error: users.error,
+            };
+          }
+          return {
+             response : users.response
+          }
+        } catch (error) {
+          return {
+            message: error,
+          };
+        }
+      },
 }
