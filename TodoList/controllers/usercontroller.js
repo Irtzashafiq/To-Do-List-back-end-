@@ -13,19 +13,21 @@ const createUserSchema = joi.object().keys({
 });
 
 const UpdateUserSchema = joi.object().keys({
-  username: joi.string().email(),
-  password: joi.string().min(8).max(15),
+  userId : joi.string().required(),
+  userName: joi.string().alphanum().max(15).required(),
+  
 });
 
 const deleteUserSchema = joi.object().keys({
-  username: joi.string().email(),
-  password: joi.string().min(8).max(15),
+  userId : joi.array().single().required()
 });
 
 module.exports = {
   getUser: async (req, res) => {
     try {
+
       const validate = await getUserSchema.validateAsync(req.query);
+
       return res.send({
         message: "Get Users",
         data: validate,
@@ -58,33 +60,6 @@ module.exports = {
     }
   },
 
-  updateUser: async (req, res) => {
-    try {
-      const validate = await UpdateUserSchema.validateAsync(req.body);
-      return res.send({
-        message: "updated user successfully",
-        data: validate,
-      });
-    } catch (error) {
-      res.send({
-        message: error.message,
-      });
-    }
-  },
-
-  deleteUser: async (req, res) => {
-    try {
-      const validate = await deleteUserSchema.validateAsync(req.query);
-      return res.send({
-        message: "Deleted User successfully",
-        data: validate,
-      });
-    } catch (error) {
-      res.send({
-        message: error.message,
-      });
-    }
-  },
   getAllUsers : async (req, res)=>{
     try {
        const users =  await userService.getAllUsers();
@@ -97,9 +72,47 @@ module.exports = {
         response : users.response
        })
       } catch (error) {
-        res.send({
+        return res.send({
           message: error.message,
         });
   }
-}
+},
+deleteUser : async(req,res)=>{
+  try {
+    const validate = await deleteUserSchema.validateAsync(req.query)
+    const deleteUser = await userService.deleteUser(validate.userId)
+    if (deleteUser.error) {
+      return res.send({
+          error: deleteUser.error
+      })
+     }
+     return res.send({
+      response : deleteUser.response
+     })
+  } catch (error) {
+    return res.send({
+      message: error.message,
+    });
+  }
+},
+
+updateUser: async (req, res) => {
+  try {
+    const validate = await UpdateUserSchema.validateAsync(req.body);
+    const updateUser = await userService.updateUser(validate)
+    if (updateUser.error) {
+      return res.send({
+          error: updateUser.error
+      })
+     }
+     return res.send({
+      response : updateUser.response
+     })
+  } catch (error) {
+    return res.send({
+      message: error,
+    });
+  }
+},
+
 }

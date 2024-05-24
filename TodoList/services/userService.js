@@ -1,6 +1,7 @@
 const {hash} = require("bcryptjs")
 const {v4 : uuid} = require ("uuid")
 const userModel = require("../models/userModel")
+
 module.exports = {
     createUser : async (body) => {
         try {
@@ -54,4 +55,63 @@ module.exports = {
           };
         }
       },
+      deleteUser : async(userId) =>{
+        try {
+          const deleteUser = await userModel.deleteUser(userId);
+          if(deleteUser.error || !deleteUser.response){
+            
+            return {
+              
+              error : {
+                message : " unable to delete User!",
+                error : deleteUser?.error || deleteUser.response
+              }
+              
+            };
+          }
+          
+          return {
+            response : {
+              message : "user Deleted!",
+              response : deleteUser.response
+            }
+          }
+        } catch (error) {
+          return {
+            error : error,
+          }
+          
+        }
+        
+      },
+    updateUser : async(body) =>{
+        try {
+          const updateUser = await userModel.updateUser({...body});
+          if(updateUser.error || !updateUser.response[0]){
+            
+            return {
+              
+              error : {
+                message : " unable to update User!",
+                error : updateUser?.error || updateUser.response
+              }
+              
+            };
+          }
+          
+          return {
+            response : {
+              message : "user updated!",
+              response : updateUser.response
+            }
+          }
+        } catch (error) {
+          return {
+            error : error,
+          }
+          
+        }
+        
+      }
+      
 }

@@ -4,7 +4,7 @@ const {getUser,createUser,updateUser,deleteUser,getAllUsers} = require("../contr
 route.get("/getUser" ,getUser )
 route.post("/createUser", createUser)
 route.put("/updateUser",updateUser)
-route.delete("/deleteUser", deleteUser)
+route.delete("/delete", deleteUser)
 route.get("/getAll", getAllUsers)
 
 module.exports = route;
