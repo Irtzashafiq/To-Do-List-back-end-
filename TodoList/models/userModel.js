@@ -1,6 +1,4 @@
-// const { response } = require("express");
 const { models } = require("./index");
-// const { updateUser } = require("../controllers/usercontroller");
 
 module.exports = {
   createUser: async (body) => {

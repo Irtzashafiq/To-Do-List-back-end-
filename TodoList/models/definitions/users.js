@@ -23,7 +23,7 @@ users.init(
   },
   {
     timestamps: true,
-    paranoid: true,
+    paranoid: false,
     tableName: "users",
     sequelize,
 

@@ -2,10 +2,10 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var userRouter = require("./routes/userRouter")
+var userRoutes = require("./routes/userRouter");
+var taskRoutes = require("./routes/taskRouter");
 
 var app = express();
-
 // view engine setup
 
 app.set('view engine', 'jade');
@@ -14,9 +14,8 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-
-
-app.use("/user", userRouter)
+app.use("/user", userRoutes);
+app.use("/task", taskRoutes);
 
 
 // catch 404 and forward to error handler

@@ -7,10 +7,18 @@ class tasks extends Model {}
 
 tasks.init(
   {
-    userId: {
+    taskId: {
       primaryKey: true,
       type: DataTypes.STRING(255),
     },
+    TaskName: {
+        unique: true,
+        allowNull: false,
+        type: DataTypes.STRING(200)
+    },
+    TaskInfo: {
+        type: DataTypes.STRING(1000)
+    }
 
   },
   {
