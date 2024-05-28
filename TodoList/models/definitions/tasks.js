@@ -11,12 +11,12 @@ tasks.init(
       primaryKey: true,
       type: DataTypes.STRING(255),
     },
-    TaskName: {
+    taskName: {
         unique: true,
         allowNull: false,
         type: DataTypes.STRING(200)
     },
-    TaskInfo: {
+    taskInfo: {
         type: DataTypes.STRING(1000)
     }
 

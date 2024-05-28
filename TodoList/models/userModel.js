@@ -44,11 +44,13 @@ module.exports = {
   },
   deleteUser: async (userId) => {
     try {
+
       const deleteUser = await models.users.destroy({
         where: {
           userId: userId,
         },
       });
+      
       return {
         response: deleteUser,
       };
