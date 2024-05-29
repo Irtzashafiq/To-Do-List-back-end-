@@ -30,10 +30,17 @@ module.exports = {
   },
   getAllTask: async () => {
     try {
-      console.log("inside model 1");
-      const task = await models.tasks.findAll();
-      // console.log(task,"=====task")
-      console.log("inside model 2");
+      const task = await models.tasks.findAll({
+        attributes:{
+          exclude : ["deletedAt", "userId"],
+        },
+        include : {
+          model: models.users,
+          attributes :  ["userName", "userId"]
+          
+        }
+      });
+     
       return {
         response: task,
       };

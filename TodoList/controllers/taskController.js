@@ -1,17 +1,19 @@
 const joi = require("joi")
 const taskService = require("../services/taskService");
-const { response } = require("express");
+
+
 
 const getTaskSchema = joi.object().keys({
     taskName : joi.string().min(1).max(33).required(),
     taskInfo : joi.string().max(2000)
 })
 const createTaskSchema = joi.object().keys({
-    taskName : joi.string().min(1).max(33).required(),
-    taskInfo : joi.string().max(2000)
+    taskName : joi.string().min(3).max(255).required(),
+    taskInfo : joi.string().max(1000),
+    userId : joi.string().length(36).required(),
 })
 const deleteTaskSchema = joi.object().keys({
-  taskId: joi.string().required(),
+  taskId: joi.array().single().required(),
 });
 const updateTaskSchema = joi.object().keys({
   taskId: joi.string().required(),

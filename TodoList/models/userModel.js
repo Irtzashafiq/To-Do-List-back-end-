@@ -32,7 +32,16 @@ module.exports = {
   },
   getAllUsers: async () => {
     try {
-      const users = await models.users.findAll();
+      const users = await models.users.findAll({
+        attributes:{
+          exclude: 
+          ["password"]
+        },
+        include :{
+          model: models.tasks,
+        }
+      });
+      
       return {
         response: users,
       };
