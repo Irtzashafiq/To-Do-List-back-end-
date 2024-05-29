@@ -1,9 +1,8 @@
 const joi = require("joi");
 const sessionService = require("../services/sessionsService");
 
-
 const getSessionSchema = joi.object().keys({
-  sessionId: joi.string().min(1).max(33).required(),
+  sessionId: joi.string().max(1000).required(),
   token: joi.string().max(2000),
   userId: joi.string(),
 });
@@ -11,7 +10,7 @@ const createSessionSchema = joi.object().keys({
   userId: joi.string().length(36).required(),
 });
 const deleteSessionSchema = joi.object().keys({
-  SessionId: joi.array().single().required(),
+  sessionId: joi.array().single().required(),
 });
 
 module.exports = {
@@ -57,7 +56,7 @@ module.exports = {
       //try catch is used so that the server should not crash!
       const validate = await deleteSessionSchema.validateAsync(req.query);
       const deleteSession = await sessionService.deleteSession(
-        validate.SessionId
+        validate.sessionId
       );
       if (deleteSession.error) {
         return res.send(deleteSession.error);

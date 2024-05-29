@@ -26,7 +26,7 @@ module.exports = {
   
   deleteSession: async (sessionId) => {
     try {
-      const deleteSession = await sessionModel.deletesession(sessionId);
+      const deleteSession = await sessionModel.deleteSession(sessionId);
       if (deleteSession.error || !deleteSession.response) {
         return {
           error: {
