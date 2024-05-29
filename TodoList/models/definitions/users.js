@@ -22,8 +22,8 @@ users.init(
     },
   },
   {
-    timestamps: true,
-    paranoid: false,
+    timestamps: true, // by default true
+    paranoid: false, // by default false
     tableName: "users",
     sequelize,
 

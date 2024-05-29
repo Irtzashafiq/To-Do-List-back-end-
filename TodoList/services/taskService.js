@@ -6,6 +6,7 @@ module.exports = {
     try {
       body.taskId = uuid();
       const task = await taskModel.createTask(body);
+      
       if (task.error) {
         return {
           error: task.error,

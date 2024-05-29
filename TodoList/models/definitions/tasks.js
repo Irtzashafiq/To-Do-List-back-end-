@@ -20,7 +20,8 @@ tasks.init(
     taskInfo: {
         type: DataTypes.STRING(1000)
     },
-    userId : {
+    //userId as a foreign key in task table 
+    userId : {     
       type : DataTypes.STRING(255),
       allowNull: false,
       references:{
