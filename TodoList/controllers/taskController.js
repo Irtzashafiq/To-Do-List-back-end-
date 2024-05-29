@@ -79,7 +79,9 @@ getAllTasks: async (req, res) => {
 deleteTask: async (req, res) => {
   try {
     //try catch is used so that the server should not crash!
+    console.log(req.query,"========query")
     const validate = await deleteTaskSchema.validateAsync(req.query);
+    console.log(validate,"========validate")
     const deleteTask = await taskService.deleteTask(validate.taskId);
     if (deleteTask.error) {
       return res.send(deleteTask.error);

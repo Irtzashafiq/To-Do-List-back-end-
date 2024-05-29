@@ -63,9 +63,9 @@ module.exports = {
       };
     }
   },
-  deleteTask: async (body) => {
+  deleteTask: async (taskId) => {
     try {
-      const deleteTask = await taskModel.deleteTask(body.taskId);
+      const deleteTask = await taskModel.deleteTask(taskId);
       if (deleteTask.error || !deleteTask.response) {
         return {
           error: {
