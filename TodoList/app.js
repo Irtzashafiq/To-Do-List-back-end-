@@ -2,9 +2,10 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var authRoutes = require("./routes/authRouter")
 var userRoutes = require("./routes/userRouter");
 var taskRoutes = require("./routes/taskRouter");
-var sessionRouter = require("./routes/sessionsRouter")
+// var sessionRouter = require("./routes/sessionsRouter")
 
 var app = express();
 // view engine setup
@@ -15,9 +16,10 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use("/auth", authRoutes)
 app.use("/user", userRoutes);
-app.use("/task", taskRoutes);
-app.use("/session", sessionRouter)
+app.use("/task", taskRoutes);  
+// app.use("/session", sessionRouter)
 
 
 // catch 404 and forward to error handler
