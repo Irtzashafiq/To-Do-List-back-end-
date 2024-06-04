@@ -5,7 +5,7 @@ module.exports = {
   login: async (body) => {
     try {
       const user = await userModel.getUser(false, body.userName);
-      console.log(user, "User retrieved from getUser");
+      // console.log(user, "User retrieved from getUser");
       if (user.error || !user.response) {
         return {
           error : {
@@ -14,22 +14,20 @@ module.exports = {
           }
         }; 
       }
-      const plaintextPassword = body.password;
-      const storedPasswordHash = user.response.dataValues.password;
-
-      console.log(plaintextPassword, "Plaintext password");
-      console.log(storedPasswordHash, "Stored password hash")
+ 
 
       const isValid = await compare( 
-        // body.password,
-        // user.response.dataValues.password
-        plaintextPassword, storedPasswordHash
+        body.password,
+        user.response.dataValues.password
+        
       );
       console.log(isValid, "Password comparison result");
       if(!isValid){
         return {
-            message: "Invalid Credentials",
+            response : {
+              message: "Invalid Credentials",
             response : false,
+            }
          
         }
       }
