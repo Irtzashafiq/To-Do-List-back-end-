@@ -18,7 +18,7 @@ module.exports = {
         body.userId = uuid();
         
         const user =await userModel.createUser(body);
-       
+        
         if (user.error) {
             return{
                 error: user.error

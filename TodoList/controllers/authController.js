@@ -17,6 +17,10 @@ module.exports = {
           error: login.error,
         }); 
       }
+      
+      res.cookie("auth", login.response.token);
+      delete login.response.token;
+
       return res.send({
         response: login.response,
       });

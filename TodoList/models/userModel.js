@@ -20,6 +20,11 @@ module.exports = {
         ...(userId
           ? { where: { userId: userId } }
           : { where: { userName: userName } }),
+          attributes : {
+            exclude : [
+              "updatedAt" , "createdAt"
+            ]
+          }
       });
       return {
         response: user,

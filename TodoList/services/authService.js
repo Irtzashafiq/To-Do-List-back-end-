@@ -1,5 +1,8 @@
 const userModel = require("../models/userModel");
 const { compare } = require("bcryptjs");
+const { response } = require("express");
+const { sign } = require("jsonwebtoken");
+require ("dotenv").config;
 
 module.exports = {
   login: async (body) => {
@@ -21,21 +24,24 @@ module.exports = {
         user.response.dataValues.password
         
       );
-      console.log(isValid, "Password comparison result");
+      
       if(!isValid){
         return {
             response : {
               message: "Invalid Credentials",
             response : false,
+            token : "undefined"
             }
          
         }
       }
-
+      delete user.response.dataValues.password;
+      const token = sign(user.response.dataValues , process.env.SECRET);
       return {
         response: {
             message: "Logged In successfully",
-            
+            response : true,
+            token : token
         }
       }
     } catch (error) {
