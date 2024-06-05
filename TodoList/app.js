@@ -2,7 +2,9 @@ var createError = require('http-errors');
 var express = require('express');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
-var authRoutes = require("./routes/authRouter")
+var cors = require("cors");
+
+var authRoutes = require("./routes/authRouter");
 var userRoutes = require("./routes/userRouter");
 var taskRoutes = require("./routes/taskRouter");
 // var sessionRouter = require("./routes/sessionsRouter")
@@ -15,7 +17,12 @@ app.set('view engine', 'jade');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cors({ //without cors it throws some behaviour issues
+  credentials : true, 
+  origin : true, // it allows communication between different origins like front end or backend
+}))
 app.use(cookieParser());
+
 app.use("/auth", authRoutes)
 app.use("/user", userRoutes);
 app.use("/task", taskRoutes);  
