@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { response } = require("express");
 const { verify } = require("jsonwebtoken")
 module.exports = {
   middlewear: async (req, res , next) => {
