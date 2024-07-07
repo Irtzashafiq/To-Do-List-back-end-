@@ -8,6 +8,7 @@ const getTaskSchema = joi.object().keys({
 const createTaskSchema = joi.object().keys({
   taskName: joi.string().min(3).max(255).required(),
   taskInfo: joi.string().max(1000),
+  status: joi.string().valid("Completed" , "InProgress", "Delayed" ).required(),
   userId: joi.string().length(36).required(),
 });
 const deleteTaskSchema = joi.object().keys({

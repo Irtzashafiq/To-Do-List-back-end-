@@ -20,6 +20,10 @@ tasks.init(
     taskInfo: {
         type: DataTypes.STRING(1000)
     },
+    status: {
+      type: DataTypes.ENUM,
+      values : ["Completed","InProgress","Delayed"]
+    },
     //userId as a foreign key in task table 
     userId : {     
       type : DataTypes.STRING(255),
